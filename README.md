@@ -18,7 +18,6 @@ The **CAM-IMX335-5MP** is a high-performance 5-Megapixel camera module designed 
 - `build_offline_complete.tar.gz`: Package for offline installation (pre-compiled binaries).
 - `ipa_rpi_pisp.so` / `ipa_rpi_pisp.so.sign`: Pre-compiled IPA module for Raspberry Pi 5.
 - `ipa_rpi_vc4.so` / `ipa_rpi_vc4.so.sign`: Pre-compiled IPA module for Raspberry Pi 4.
-- `replace_ipa.sh`: Automated script to detect the Raspberry Pi model and install the correct IPA module.
 
 ## Quick Start
 
@@ -28,24 +27,31 @@ Connect the CAM-IMX335-5MP module to the MIPI CSI camera port on your Raspberry 
 
 ### 2. Software Installation
 
-You can choose either the quick IPA replacement method or the full installation method.
+This installation method directly installs pre-compiled files to ensure compatibility and avoid system update issues.
 
-#### Method A: Quick IPA Replacement (Recommended)
+#### Installation Steps
 
-If you already have a working `libcamera` environment, you can simply replace the IPA module using the provided script:
+1. Clone the repository:
+   ```bash
+   sudo git clone https://github.com/INNO-MAKER/CAM-IMX335-5MP.git
+   cd CAM-IMX335-5MP
+   ```
 
-```bash
-git clone https://github.com/INNO-MAKER/CAM-IMX335-5MP.git
-cd CAM-IMX335-5MP
-sudo chmod +x replace_ipa.sh
-sudo ./replace_ipa.sh
-```
+2. Set permissions for all files:
+   ```bash
+   sudo chmod -R a+rwx *
+   ```
 
-The script will automatically detect whether you are using a Raspberry Pi 4 or Pi 5 and install the corresponding `.so` file (`ipa_rpi_vc4.so` or `ipa_rpi_pisp.so`).
+3. Run the IPA installation script:
+   ```bash
+   sudo ./replace_ipa.sh
+   ```
 
-#### Method B: Full Installation
+The script will automatically detect whether you are using a Raspberry Pi 4 or Pi 5 and install the corresponding IPA module (`ipa_rpi_vc4.so` for Pi 4 or `ipa_rpi_pisp.so` for Pi 5).
 
-For a complete installation from scratch, please refer to the `CAM-IMX335-5MP UserManual.pdf` included in this repository. You can use either the online or offline build packages provided.
+#### Alternative: Full Compilation from Source
+
+For advanced users who need to compile from source, refer to the `CAM-IMX335-5MP UserManual.pdf` included in this repository for detailed instructions using the online or offline build packages.
 
 ### 3. Testing the Camera
 
