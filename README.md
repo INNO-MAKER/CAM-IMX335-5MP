@@ -14,11 +14,8 @@ The **CAM-IMX335-5MP** is a high-performance 5-Megapixel camera module designed 
 ## Repository Contents
 
 - `CAM-IMX335-5MP UserManual.pdf`: Comprehensive user manual with detailed hardware specifications and software setup instructions.
-- `build_online_complete.tar.gz`: Package for online installation (compiles from source).
-- `build_offline_complete.tar.gz`: Package for offline installation (pre-compiled binaries).
-- `ipa_rpi_pisp.so` / `ipa_rpi_pisp.so.sign`: Pre-compiled IPA module for Raspberry Pi 5.
-- `ipa_rpi_vc4.so` / `ipa_rpi_vc4.so.sign`: Pre-compiled IPA module for Raspberry Pi 4.
-- `replace_ipa.sh`: Automated script to detect the Raspberry Pi model and install the correct IPA module.
+- `build_offline_complete.tar.gz`: Offline build package containing libcamera and rpicam-apps source code.
+- `build_offline_complete_trixie.sh`: Automated build and installation script for Raspberry Pi OS (Trixie).
 
 ## Quick Start
 
@@ -28,26 +25,72 @@ Connect the CAM-IMX335-5MP module to the MIPI CSI camera port on your Raspberry 
 
 ### 2. Software Installation
 
-You can choose either the quick IPA replacement method or the full installation method.
+This recommended method builds libcamera and rpicam-apps from offline source packages to ensure compatibility and avoid system update issues.
 
-#### Method A: Quick IPA Replacement (Recommended)
+#### Installation Steps
 
-If you already have a working `libcamera` environment, you can simply replace the IPA module using the provided script:
+1. Update system packages:
+   ```bash
+   sudo apt-get update
+   sudo apt-get dist-upgrade
+   ```
 
-```bash
-git clone https://github.com/INNO-MAKER/CAM-IMX335-5MP.git
-cd CAM-IMX335-5MP
-sudo chmod +x replace_ipa.sh
-sudo ./replace_ipa.sh
+2. Clone the repository:
+   ```bash
+   sudo git clone https://github.com/INNO-MAKER/CAM-IMX335-5MP.git
+   cd CAM-IMX335-5MP
+   ```
+
+3. Set permissions for all files:
+   ```bash
+   sudo chmod -R a+rwx *
+   ```
+
+4. Extract the offline build package:
+   ```bash
+   sudo tar -zxvf build_offline_complete.tar.gz
+   cd build_offline_complete
+   ```
+
+5. Run the build and installation script:
+   ```bash
+   sudo ./build_offline_complete_trixie.sh
+   ```
+
+The script will compile libcamera with IMX335 support and install rpicam-apps. After completion, proceed to configure `/boot/config.txt` as described in the Testing the Camera section.
+
+#### Alternative: Pre-compiled Installation
+
+For advanced users who prefer a simpler installation, refer to the `CAM-IMX335-5MP UserManual.pdf` for alternative installation methods.
+
+### 3. Camera Configuration
+
+Edit your `/boot/firmware/config.txt` (Pi 5) or `/boot/config.txt` (Pi 4) and add one of the following configurations:
+
+**Default (CSI1 port)**:
+```ini
+camera_auto_detect=0
+dtoverlay=imx335
 ```
 
-The script will automatically detect whether you are using a Raspberry Pi 4 or Pi 5 and install the corresponding `.so` file (`ipa_rpi_vc4.so` or `ipa_rpi_pisp.so`).
+**Use CSI0 port**:
+```ini
+camera_auto_detect=0
+dtoverlay=imx335,cam0  # for csi0
+```
 
-#### Method B: Full Installation
+**Use CSI1 port (explicit)**:
+```ini
+camera_auto_detect=0
+dtoverlay=imx335,cam1  # for csi1
+```
 
-For a complete installation from scratch, please refer to the `CAM-IMX335-5MP UserManual.pdf` included in this repository. You can use either the online or offline build packages provided.
+Reboot your Raspberry Pi for the changes to take effect:
+```bash
+sudo reboot
+```
 
-### 3. Testing the Camera
+### 4. Testing the Camera
 
 After installation and rebooting, you can test the camera using the standard `rpicam-apps`:
 
