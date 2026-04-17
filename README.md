@@ -65,11 +65,24 @@ For advanced users who prefer a simpler installation, refer to the `CAM-IMX335-5
 
 ### 3. Camera Configuration
 
-Edit your `/boot/firmware/config.txt` (Pi 5) or `/boot/config.txt` (Pi 4) and add the following configuration:
+Edit your `/boot/firmware/config.txt` (Pi 5) or `/boot/config.txt` (Pi 4) and add one of the following configurations:
 
+**Default (CSI1 port)**:
 ```ini
 camera_auto_detect=0
 dtoverlay=imx335
+```
+
+**Use CSI0 port**:
+```ini
+camera_auto_detect=0
+dtoverlay=imx335,cam0  # for csi0
+```
+
+**Use CSI1 port (explicit)**:
+```ini
+camera_auto_detect=0
+dtoverlay=imx335,cam1  # for csi1
 ```
 
 Reboot your Raspberry Pi for the changes to take effect:
