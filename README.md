@@ -25,7 +25,9 @@ The **CAM-IMX335-5MP** is a high-performance 5-Megapixel camera module designed 
 
 ### 1. Hardware Connection
 
-Connect the CAM-IMX335-5MP module to the MIPI CSI camera port on your Raspberry Pi using the provided ribbon cable. Ensure the contacts are facing the correct direction according to your Raspberry Pi model.
+Connect the CAM-IMX335-5MP module to the MIPI CSI camera port on your Raspberry Pi using the provided FPC ribbon cable. Ensure the contacts are facing the correct direction according to your Raspberry Pi model.
+
+![FPC Connection Diagram](images/fpc_connection.png)
 
 ### 2. Software Installation
 
