@@ -163,6 +163,15 @@ rpicam-vid -t 5000 -o test.h264
 
 ---
 
+## Preset OS Image
+
+A pre-configured Raspberry Pi OS image with all drivers and software pre-installed is available for download:
+
+**Download**: [https://www.jianguoyun.com/p/DWqJpGAQpdSrBxil9p8GIAA](https://www.jianguoyun.com/p/DWqJpGAQpdSrBxil9p8GIAA)  
+**Password**: `exgk55`
+
+---
+
 ## Documentation
 
 For detailed specifications, advanced configuration, and troubleshooting, please consult the [CAM-IMX335-5MP.pdf](./CAM-IMX335-5MP.pdf).
